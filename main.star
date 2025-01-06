@@ -17,6 +17,7 @@ input_parser = import_module("./src/package_io/input_parser.star")
 ethereum_package_static_files = import_module(
     "github.com/ethpandaops/ethereum-package/src/static_files/static_files.star"
 )
+espresso = import_module("./src/espresso/espresso_launcher.star")
 
 
 def run(plan, args):
@@ -30,6 +31,7 @@ def run(plan, args):
     plan.print("Parsing the L1 input args")
     # If no args are provided, use the default values with minimal preset
     ethereum_args = args.get("ethereum_package", {})
+    espresso_args = args.get("espresso", None)
     external_l1_args = args.get("external_l1_network_params", {})
     if external_l1_args:
         external_l1_args = input_parser.external_l1_network_params_input_parser(
@@ -91,6 +93,9 @@ def run(plan, args):
         )
         plan.print("Waiting for L1 to start up")
         wait_for_sync.wait_for_startup(plan, l1_config_env_vars)
+
+    if espresso_args != None:
+        espresso.launch_espresso(plan, l1_rpc_url, espresso_args)
 
     deployment_output = contract_deployer.deploy_contracts(
         plan,

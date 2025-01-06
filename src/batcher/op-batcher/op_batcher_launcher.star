@@ -62,6 +62,11 @@ def launch(
         da_server_context,
     )
 
+    if batcher_params.dry_run:
+        plan.print(config.cmd)
+        return "op_batcher"
+
+
     batcher_service = plan.add_service(service_name, config)
 
     batcher_http_port = batcher_service.ports[BATCHER_HTTP_PORT_ID]

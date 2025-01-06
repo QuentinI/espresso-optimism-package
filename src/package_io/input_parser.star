@@ -202,6 +202,7 @@ def input_parser(plan, input_args):
                 ),
                 batcher_params=struct(
                     image=result["batcher_params"]["image"],
+                    dry_run=result["batcher_params"]["dry_run"],
                     extra_params=result["batcher_params"]["extra_params"],
                 ),
                 challenger_params=struct(
@@ -492,14 +493,13 @@ def default_chains():
             "participants": [default_participant()],
             "network_params": default_network_params(),
             "batcher_params": default_batcher_params(),
-            "proposer_params": default_proposer_params(),
             "challenger_params": default_challenger_params(),
+            "proposer_params": default_proposer_params(),
             "mev_params": default_mev_params(),
             "da_server_params": default_da_server_params(),
             "additional_services": DEFAULT_ADDITIONAL_SERVICES,
         }
     ]
-
 
 def default_network_params():
     return {
@@ -519,6 +519,7 @@ def default_network_params():
 def default_batcher_params():
     return {
         "image": DEFAULT_BATCHER_IMAGES["op-batcher"],
+        "dry_run": False,
         "extra_params": [],
     }
 
@@ -541,7 +542,6 @@ def default_proposer_params():
         "game_type": 1,
         "proposal_interval": "10m",
     }
-
 
 def default_participant():
     return {
