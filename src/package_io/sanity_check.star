@@ -92,7 +92,7 @@ SUBCATEGORY_PARAMS = {
         "interop_time_offset",
         "fund_dev_accounts",
     ],
-    "batcher_params": ["image", "extra_params"],
+    "batcher_params": ["image", "extra_params", "dry_run"],
     "proposer_params": ["image", "extra_params", "game_type", "proposal_interval"],
     "challenger_params": [
         "enabled",
